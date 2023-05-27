@@ -8,6 +8,7 @@ namespace ZooDomain.Services
 {
     public interface IZooService
     {
-        public decimal CalculateTotalCost(string priceFilePath, string animalFilePath, string zooFilePath);
+        // public decimal CalculateTotalCost(string priceFilePath, string animalFilePath, string zooFilePath);
+        public decimal CalculateTotalCost();
     }
 }

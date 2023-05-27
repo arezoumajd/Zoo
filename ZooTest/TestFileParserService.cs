@@ -1,112 +1,67 @@
+using Xunit;
 using Moq;
-using ZooCore.Services;
-using ZooDomain.DataModels;
-using ZooDomain.Enums;
 using ZooDomain.Services;
+using ZooDomain.DTO;
 
-namespace ZooTest;
-
-public class TestFileParserService
+public class ParseFileServiceTests
 {
     [Fact]
-    public void ParsePricesFile_ShouldParsePricesFromFile()
+    public void ParseAllFiles_ShouldReturnTrueOnSuccessfulParsing()
     {
         // Arrange
-        string testFilePath = "../../../../ZooCore/Files/prices.txt";
-        string testFileContent = "Meat=12.56\nFruit=5.60";
-        File.WriteAllText(testFilePath, testFileContent);
-
         var parseFileServiceMock = new Mock<IParseFileService>();
-        parseFileServiceMock.Setup(service => service.ParsePricesFile(testFilePath))
-            .Returns(new Dictionary<string, decimal>
-            {
-                { "Meat", 12.56m },
-                { "Fruit", 5.60m }
-            });
-
-        // Act
-        Dictionary<string, decimal> result = parseFileServiceMock.Object.ParsePricesFile(testFilePath);
-
-        // Assert
-        Assert.Equal(2, result.Count);
-        Assert.Equal(12.56m, result["Meat"]);
-        Assert.Equal(5.60m, result["Fruit"]);
-    }
-
-    [Fact]
-    public void ParseAnimalFile_ShouldParseAnimalCategoriesFromFile()
-    {
-        // Arrange
-        string testFilePath = "../../../../ZooCore/Files/animals.csv";
-        string testFileContent = "Lion;0.10;meat";
-        File.WriteAllText(testFilePath, testFileContent);
-
-        var parseFileServiceMock = new Mock<IParseFileService>();
-        parseFileServiceMock.Setup(service => service.ParseAnimalFile(testFilePath))
-            .Returns(new List<AnimalCategory>{
-                new AnimalCategory {
-                    Name = "Lion",
-                    RatePerKg = 0.10m,
-                    Type = AnimalTypeEnum.Carnivores,
-                    MeatPercentage = 100
-                }
-            });
-
-        // Act
-        List<AnimalCategory> result = parseFileServiceMock.Object.ParseAnimalFile(testFilePath);
-
-        // Assert
-        Assert.Equal(1, result.Count);
-
-        Assert.Equal("Lion", result[0].Name);
-        Assert.Equal(0.10m, result[0].RatePerKg);
-        Assert.Equal(AnimalTypeEnum.Carnivores, result[0].Type);
-        Assert.Equal(100, result[0].MeatPercentage);
-    }
-
-    [Fact]
-    public void ParseZooFile_ShouldParseAnimalsFromFile()
-    {
-        // Arrange
-        string testFilePath = "../../../../ZooCore/Files/zoo.xml";
-        string testFileContent = "<Zoo>\n <Lions>\n <Lion name='Simba' kg='160'/>\n </Lions>\n</Zoo>";
-        File.WriteAllText(testFilePath, testFileContent);
-        List<AnimalCategory> animalCategories = new List<AnimalCategory>
+        var paths = new FilePaths
         {
-            new AnimalCategory { Name = "Lion", RatePerKg = 0.10m, Type = AnimalTypeEnum.Carnivores, MeatPercentage = 100 }
+            PricesFilePath = "./ZooCore/Files/prices.txt",
+            AnimalsFilePath = "./ZooCore/Files/animals.csv",
+            ZooFilePath = "./ZooCore/Files/zoo.xml"
         };
-        var parseFileServiceMock = new Mock<IParseFileService>();
-        parseFileServiceMock.Setup(service => service.ParseZooFile(testFilePath, animalCategories))
-            .Returns(new Zoo
-            {
-                Animals =
-                new List<Animal> {
-                    new Animal {
-                        Name = "Simba",
-                        Weight = 160,
-                        AnimalCategory = new AnimalCategory
-                        {
-                            Name = "Lion",
-                            RatePerKg = (decimal) 0.10,
-                            Type = AnimalTypeEnum.Carnivores,
-                            MeatPercentage = 100
-                        }
-                    }
-                }
-            });
+
+        // parseFileServiceMock.Setup(pfs => pfs.ParsePricesFile(paths.PricesFilePath));
+        // parseFileServiceMock.Setup(pfs => pfs.ParseAnimalFile(paths.AnimalsFilePath));
+        // parseFileServiceMock.Setup(pfs => pfs.ParseZooFile(paths.ZooFilePath, It.IsAny<List<AnimalCategory>>()));
+
+        var parseFileService = parseFileServiceMock.Object;
 
         // Act
-        Zoo result = parseFileServiceMock.Object.ParseZooFile(testFilePath, animalCategories);
+        bool result = parseFileService.ParseAllFiles(paths);
 
         // Assert
-        Assert.NotNull(result);
-        Assert.NotNull(result.Animals);
-        Assert.Single(result.Animals);
+        Assert.True(result);
 
-        Animal lion = result.Animals.Where(x => x.AnimalCategory.Name == "Lion").FirstOrDefault();
-        Assert.Equal("Simba", lion.Name);
-        Assert.Equal(160m, lion.Weight);
-        //Assert.Equal(animalCategories[0], lion.AnimalCategory); ;
-        Assert.IsType<AnimalCategory>(lion.AnimalCategory);
+        // // Verify that the expected methods were called
+        // parseFileServiceMock.Verify(pfs => pfs.ParsePricesFile(paths.PricesFilePath), Times.Once);
+        // parseFileServiceMock.Verify(pfs => pfs.ParseAnimalFile(paths.AnimalsFilePath), Times.Once);
+        // parseFileServiceMock.Verify(pfs => pfs.ParseZooFile(paths.ZooFilePath, It.IsAny<List<AnimalCategory>>()), Times.Once);
+    }
+
+    [Fact]
+    public void ParseAllFiles_ShouldReturnFalseOnError()
+    {
+        // Arrange
+        var parseFileServiceMock = new Mock<IParseFileService>();
+        var paths = new FilePaths
+        {
+            PricesFilePath = "./ZooCore/Files/prices.txt",
+            AnimalsFilePath = "./ZooCore/Files/animals.csv",
+            ZooFilePath = "./ZooCore/Files/zoo.xml"
+        };
+
+        // parseFileServiceMock.Setup(pfs => pfs.ParsePricesFile(paths.PricesFilePath)).Throws(new Exception());
+        // parseFileServiceMock.Setup(pfs => pfs.ParseAnimalFile(paths.AnimalsFilePath));
+        // parseFileServiceMock.Setup(pfs => pfs.ParseZooFile(paths.ZooFilePath, It.IsAny<List<AnimalCategory>>()));
+
+        var parseFileService = parseFileServiceMock.Object;
+
+        // Act
+        bool result = parseFileService.ParseAllFiles(paths);
+
+        // Assert
+        Assert.False(result);
+
+        // Verify that the expected methods were called
+        // parseFileServiceMock.Verify(pfs => pfs.ParsePricesFile(paths.PricesFilePath), Times.Once);
+        // parseFileServiceMock.Verify(pfs => pfs.ParseAnimalFile(paths.AnimalsFilePath), Times.Never);
+        // parseFileServiceMock.Verify(pfs => pfs.ParseZooFile(paths.ZooFilePath, It.IsAny<List<AnimalCategory>>()), Times.Never);
     }
 }

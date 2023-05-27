@@ -1,61 +1,51 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Xunit;
 using Moq;
-using ZooCore.Services;
-using ZooDomain.DataModels;
-using ZooDomain.Enums;
+using System.Collections.Generic;
 using ZooDomain.Services;
+using ZooDomain.Enums;
+using ZooDomain.DataModels;
+using ZooCore.Services;
 
-namespace ZooTest
+public class ZooServiceTests
 {
-    public class TestZooService
+    [Fact]
+    public void CalculateTotalCost_ShouldCalculateCorrectTotalCost()
     {
-        [Fact]
-        public void CalculateTotalCost_ShouldCalculateCorrectTotalCost()
+        // Arrange
+        var parseFileServiceMock = new Mock<IParseFileService>();
+        var zooServiceMock = new Mock<IZooService>();
+
+        // Create test data for food prices
+        var foodPrices = new Dictionary<string, decimal>
         {
-            // Arrange
-            string priceFilePath = "../../../../ZooCore/Files/prices.txt";
-            string animalFilePath = "../../../../ZooCore/Files//animals.csv";
-            string zooFilePath = "../../../../ZooCore/Files/zoo.xml";
+            { ((FoodEnum)FoodEnum.Meat).ToString(), 12.56m },
+            { ((FoodEnum)FoodEnum.Fruit).ToString(), 5.60m }
+        };
 
-            var parseFileServiceMock = new Mock<IParseFileService>();
-
-            var prices = new Dictionary<string, decimal> {
-                { "Meat", 12.56m },
-                { "Fruit", 5.60m }
-            };
-
-            var animalCategories = new List<AnimalCategory> {
-                new AnimalCategory { Name = "Lion", RatePerKg = 0.10m, Type = AnimalTypeEnum.Carnivores, MeatPercentage = 100 },
-                new AnimalCategory { Name = "Giraffe", RatePerKg = 0.08m, Type = AnimalTypeEnum.Herbivores, MeatPercentage = 0 },
-            };
-
-            var zoo = new Zoo
+        // Create test data for the zoo
+        var zoo = new Zoo
+        {
+            Animals = new List<Animal>
             {
-                Animals = new List<Animal> {
-                    new Animal { Name = "Simba", Weight = 160m, AnimalCategory = animalCategories[0] },
-                    new Animal { Name = "Hanna", Weight = 200m, AnimalCategory = animalCategories[1] }
-                }
-            };
+                new Animal { Name = "Simba", Weight = 160m, AnimalCategory = new AnimalCategory { RatePerKg = 0.10m, MeatPercentage = 100 } },
+                new Animal { Name = "Hanna", Weight = 200m, AnimalCategory = new AnimalCategory { RatePerKg = 0.08m, MeatPercentage = 0 } },
+            }
+        };
 
-            parseFileServiceMock.Setup(pfs => pfs.ParsePricesFile(priceFilePath)).Returns(prices);
+        parseFileServiceMock.Setup(pfs => pfs.GetFoodPrices()).Returns(foodPrices);
 
-            parseFileServiceMock.Setup(pfs => pfs.ParseAnimalFile(animalFilePath)).Returns(animalCategories);
+        parseFileServiceMock.Setup(pfs => pfs.GetZoo()).Returns(zoo);
 
-            parseFileServiceMock.Setup(pfs => pfs.ParseZooFile(zooFilePath, animalCategories)).Returns(zoo);
+        var zooService = new ZooService(parseFileServiceMock.Object);
 
-            var zooService = new ZooService(parseFileServiceMock.Object);
+        // Act
+        decimal totalCost = zooService.CalculateTotalCost();
 
-            // Act
-            decimal totalCost = zooService.CalculateTotalCost(priceFilePath, animalFilePath, zooFilePath);
+        // Assert
+        Assert.Equal(290.56m, totalCost); // Adjust the expected value based on your calculation
 
-            // Assert
-            Assert.Equal(290.56m, totalCost);
-            parseFileServiceMock.Verify(pfs => pfs.ParsePricesFile(priceFilePath), Times.Once);
-            parseFileServiceMock.Verify(pfs => pfs.ParseAnimalFile(animalFilePath), Times.Once);
-            parseFileServiceMock.Verify(pfs => pfs.ParseZooFile(zooFilePath, animalCategories), Times.Once);
-        }
+        // Verify that the mock methods were called
+        parseFileServiceMock.Verify(pfs => pfs.GetFoodPrices(), Times.Once);
+        parseFileServiceMock.Verify(pfs => pfs.GetZoo(), Times.Once);
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using ZooDomain.DataModels;
+using ZooDomain.DTO;
 using ZooDomain.Enums;
 using ZooDomain.Services;
 
@@ -12,7 +13,10 @@ namespace ZooCore.Services
 {
     public class ParseFileService : IParseFileService
     {
-        public Dictionary<string, decimal> ParsePricesFile(string path)
+        public Dictionary<string, decimal> FoodPrices;
+        public List<AnimalCategory> Categories;
+        public Zoo ZooDetail;
+        private void ParsePricesFile(string path)
         {
             string priceFileContent = File.ReadAllText(path);
             string[] lines = priceFileContent.Split('\n'); //animalFileContent.Split(Environment.NewLine);
@@ -24,10 +28,10 @@ namespace ZooCore.Services
                 decimal price = decimal.Parse(parts[1].Trim());
                 prices.Add(foodType, price);
             }
-            return prices;
+            this.FoodPrices = prices;
         }
 
-        public List<AnimalCategory> ParseAnimalFile(string path)
+        private void ParseAnimalFile(string path)
         {
             string animalFileContent = File.ReadAllText(path);
             List<AnimalCategory> animalCategories = new List<AnimalCategory>();
@@ -69,46 +73,97 @@ namespace ZooCore.Services
                 animalCategories.Add(data);
             }
 
-            return animalCategories;
+            this.Categories = animalCategories;
         }
 
-        public Zoo ParseZooFile(string path, List<AnimalCategory> animalCategories)
+        private void ParseZooFile(string path, List<AnimalCategory>? animalCategories)
         {
             Zoo zooDetails = new Zoo();
             List<Animal> animalList = new List<Animal>();
             XmlDocument doc = new XmlDocument();
             doc.Load(path);
-            XmlElement root = doc.DocumentElement;
-
+            XmlElement? root = doc.DocumentElement;
             if (root != null)
             {
+                List<AnimalXMLDto> nodes = new List<AnimalXMLDto>();
                 foreach (var category in animalCategories)
                 {
-                    XmlNodeList nodes = root.GetElementsByTagName(category.Name);
-                    for (int i = 0; i < nodes.Count; i++)
+                    nodes.Add(new AnimalXMLDto
+                    {
+                        XMLData = root.GetElementsByTagName(category.Name),
+                        AnimalCategory = category
+                    });
+                }
+
+                foreach (var node in nodes)
+                {
+                    for (int i = 0; i < node.XMLData.Count; i++)
                     {
                         Animal animal = new Animal();
                         if (nodes[i] != null)
                         {
-                            XmlAttribute nameAttribute = nodes[i].Attributes["name"];
+                            XmlAttribute nameAttribute = node.XMLData[i].Attributes["name"];
                             if (nameAttribute != null)
                             {
                                 animal.Name = nameAttribute.Value;
                             }
 
-                            XmlAttribute weightAttribute = nodes[i].Attributes["kg"];
+                            XmlAttribute weightAttribute = node.XMLData[i].Attributes["kg"];
                             if (weightAttribute != null)
                             {
                                 animal.Weight = decimal.Parse(weightAttribute.Value);
                             }
                         }
-                        animal.AnimalCategory = category;
+                        animal.AnimalCategory = node.AnimalCategory;
                         animalList.Add(animal);
                     }
-                    zooDetails.Animals = animalList;
+
                 }
+                zooDetails.Animals = animalList;
             }
-            return zooDetails;
+            this.ZooDetail = zooDetails;
+        }
+
+        public bool ParseAllFiles(FilePaths paths)
+        {
+            try
+            {
+                if (paths.PricesFilePath != null)
+                {
+                    ParsePricesFile(paths.PricesFilePath);
+                }
+
+                if (paths.AnimalsFilePath != null)
+                {
+                    ParseAnimalFile(paths.AnimalsFilePath);
+                }
+
+                if (paths.ZooFilePath != null)
+                {
+                    ParseZooFile(paths.ZooFilePath, this.Categories);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public Dictionary<string, decimal> GetFoodPrices()
+        {
+            return this.FoodPrices;
+        }
+
+        public List<AnimalCategory> GetAnimalCategories()
+        {
+            return this.Categories;
+        }
+
+        public Zoo GetZoo()
+        {
+            return this.ZooDetail;
         }
     }
 }
