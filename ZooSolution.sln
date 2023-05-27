@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooCore", "ZooCore\ZooCore.csproj", "{13436317-E397-4B3D-81B0-EBBDA4D35706}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooDomain", "ZooDomain\ZooDomain.csproj", "{102B0DD0-1C38-4057-A8EF-5A7DA9D546EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZooTest", "ZooTest\ZooTest.csproj", "{7467C881-A3F1-4B07-913C-5846EF101D9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13436317-E397-4B3D-81B0-EBBDA4D35706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13436317-E397-4B3D-81B0-EBBDA4D35706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13436317-E397-4B3D-81B0-EBBDA4D35706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13436317-E397-4B3D-81B0-EBBDA4D35706}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE15A5D2-0DC8-43B6-832B-C863A0FBD52E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE15A5D2-0DC8-43B6-832B-C863A0FBD52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE15A5D2-0DC8-43B6-832B-C863A0FBD52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE15A5D2-0DC8-43B6-832B-C863A0FBD52E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{102B0DD0-1C38-4057-A8EF-5A7DA9D546EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{102B0DD0-1C38-4057-A8EF-5A7DA9D546EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{102B0DD0-1C38-4057-A8EF-5A7DA9D546EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{102B0DD0-1C38-4057-A8EF-5A7DA9D546EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7467C881-A3F1-4B07-913C-5846EF101D9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7467C881-A3F1-4B07-913C-5846EF101D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7467C881-A3F1-4B07-913C-5846EF101D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7467C881-A3F1-4B07-913C-5846EF101D9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

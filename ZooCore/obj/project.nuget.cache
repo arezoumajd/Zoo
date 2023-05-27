@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "QKfBbcpYMmbCXC4+2nr9xfarRf239Bc0Yjihmqg3Vpzv0x9tLAUfx6aB2KIiBtoEAupKJCMkHh09ZkGM4/zKwg==",
+  "success": true,
+  "projectFilePath": "C:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\arezou\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\arezou\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
