@@ -9,10 +9,11 @@ namespace ZooTest;
 public class TestFileParserService
 {
     [Theory]
-    [InlineData("../../../../ZooCore/Files/prices.txt", "Meat=12.56\nFruit=5.60")]
-    public void ParsePricesFile_ShouldParsePricesFromFile(string path, string content)
+    [InlineData("Meat=12.56\nFruit=5.60")]
+    public void ParsePricesFile_ShouldParsePricesFromFile(string content)
     {
         // Arrange
+        string path = ".\\prices.txt";
         File.WriteAllText(path, content);
 
         var parseFileServiceMock = new Mock<IParseFileService>();
@@ -33,10 +34,11 @@ public class TestFileParserService
     }
 
     [Theory]
-    [InlineData("../../../../ZooCore/Files/animals.csv", "Lion;0.10;meat")]
-    public void ParseAnimalFile_ShouldParseAnimalCategoriesFromFile(string path, string content)
+    [InlineData("Lion;0.10;meat")]
+    public void ParseAnimalFile_ShouldParseAnimalCategoriesFromFile(string content)
     {
         // Arrange
+        string path = ".\\animals.csv";
         File.WriteAllText(path, content);
 
         var parseFileServiceMock = new Mock<IParseFileService>();
@@ -63,10 +65,11 @@ public class TestFileParserService
     }
 
     [Theory]
-    [InlineData("../../../../ZooCore/Files/zoo.xml", "<Zoo>\n <Lions>\n <Lion name='Simba' kg='160'/>\n </Lions>\n</Zoo>")]
-    public void ParseZooFile_ShouldParseAnimalsFromFile(string path, string content)
+    [InlineData("<Zoo>\n <Lions>\n <Lion name='Simba' kg='160'/>\n </Lions>\n</Zoo>")]
+    public void ParseZooFile_ShouldParseAnimalsFromFile(string content)
     {
         // Arrange
+        string path = ".\\zoo.xml";
         File.WriteAllText(path, content);
         List<AnimalCategory> animalCategories = new List<AnimalCategory>
         {
