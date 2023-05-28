@@ -10,5 +10,11 @@ namespace ZooDomain.DataModels
         public string Name { get; set; }
         public AnimalCategory AnimalCategory { get; set; }
         public decimal Weight { get; set; }
+
+        public Animal()
+        {
+            Name = string.Empty;
+            AnimalCategory = new AnimalCategory();
+        }
     }
 }
