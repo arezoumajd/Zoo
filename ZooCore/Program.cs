@@ -23,6 +23,7 @@ namespace ZooCore
                 else
                 {
                     Console.WriteLine("path doesn't exist");
+                    return;
                 }
             }
 
