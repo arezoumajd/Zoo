@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Linq;
 using ZooDomain.DataModels;
 using ZooDomain.Enums;
 using ZooDomain.Services;
@@ -15,7 +10,7 @@ namespace ZooCore.Services
         public Dictionary<string, decimal> ParsePricesFile(string path)
         {
             string priceFileContent = File.ReadAllText(path);
-            string[] lines = priceFileContent.Split('\n'); //animalFileContent.Split(Environment.NewLine);
+            string[] lines = priceFileContent.Split('\n');
             Dictionary<string, decimal> prices = new Dictionary<string, decimal>();
             foreach (string line in lines)
             {
@@ -78,7 +73,7 @@ namespace ZooCore.Services
             List<Animal> animalList = new List<Animal>();
             XmlDocument doc = new XmlDocument();
             doc.Load(path);
-            XmlElement root = doc.DocumentElement;
+            XmlElement? root = doc.DocumentElement;
 
             if (root != null)
             {

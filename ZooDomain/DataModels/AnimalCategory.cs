@@ -12,5 +12,10 @@ namespace ZooDomain.DataModels
         public AnimalTypeEnum Type { get; set; }
         public decimal RatePerKg { get; set; }
         public decimal MeatPercentage { get; set; }
+
+        public AnimalCategory()
+        {
+            Name = string.Empty;
+        }
     }
 }

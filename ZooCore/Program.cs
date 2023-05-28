@@ -1,27 +1,83 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using ZooCore.Services;
+using ZooDomain.DTO;
 using ZooDomain.Services;
 
 namespace ZooCore
 {
     public class Program
     {
-        private const string PathPrice = ".\\Files\\prices.txt";
-        private const string PathAnimals = ".\\Files\\animals.csv";
-        private const string PathZoo = ".\\Files\\zoo.xml";
-
         public static void Main(string[] args)
         {
-            var serviceProvider = new ServiceCollection()
-                .AddTransient<IParseFileService, ParseFileService>()
-                .AddTransient<IZooService, ZooService>()
-                .BuildServiceProvider();
+            string path = ".\\Files\\";
+            if (args.Length > 0 && args[0].Length > 0)
+            {
+                path = Path.GetFullPath(args[0].Trim('"'));
+                Console.WriteLine("trying path: " + path);
+                if (Directory.Exists(path))
+                {
+                    var files = Directory.GetFiles(path);
+                    foreach (var file in files) Console.WriteLine(file);
+                }
+                else
+                {
+                    Console.WriteLine("path doesn't exist");
+                }
+            }
 
-            // var parseFileService = serviceProvider.GetRequiredService<IParseFileService>();
-            var zooService = serviceProvider.GetRequiredService<IZooService>();
+            string pricesFilePath = Path.Combine(path, "prices.txt");
+            string animalsFilePath = Path.Combine(path, "animals.csv");
+            string zooFilePath = Path.Combine(path, "zoo.xml");
 
-            var totalcost = zooService.CalculateTotalCost(PathPrice, PathAnimals, PathZoo);
-            Console.WriteLine("Total Cost: " + totalcost + " SEK");
+            var serviceProvider = ConfigureServiceProvider(pricesFilePath, animalsFilePath, zooFilePath);
+
+            var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+
+            var logger = loggerFactory.CreateLogger<Program>();
+            logger.LogInformation("Application starting...");
+
+            var app = serviceProvider.GetRequiredService<ZooApplication>();
+
+            app.Run();
+
+            Console.WriteLine("Press ESC to close...");
+            while (true)
+            {
+                if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+                {
+                    if (app is IDisposable disposableApp)
+                    {
+                        disposableApp.Dispose();
+                    }
+                    break;
+                }
+            }
+
+        }
+
+        private static IServiceProvider ConfigureServiceProvider(string pricesFilePath, string animalsFilePath, string zooFilePath)
+        {
+            var services = new ServiceCollection();
+
+            services.AddTransient<IParseFileService, ParseFileService>();
+            services.AddTransient<IZooService, ZooService>();
+            services.AddTransient<ZooApplication>();
+
+            services.AddSingleton(new FilePathsDto
+            {
+                PricesFilePath = pricesFilePath,
+                AnimalsFilePath = animalsFilePath,
+                ZooFilePath = zooFilePath
+            });
+
+            services.AddLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddConsole();
+            });
+
+            return services.BuildServiceProvider();
         }
     }
 }

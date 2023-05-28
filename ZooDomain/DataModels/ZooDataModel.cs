@@ -8,5 +8,10 @@ namespace ZooDomain.DataModels
     public class Zoo
     {
         public IEnumerable<Animal> Animals { get; set; }
+
+        public Zoo()
+        {
+            Animals = new List<Animal>();
+        }
     }
 }

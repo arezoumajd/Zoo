@@ -18,3 +18,13 @@ C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\Microsoft.Extensions.DependencyI
 C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\ZooDomain.dll
 C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\ZooDomain.pdb
 C:\Project\ZooSolution\ZooCore\obj\Debug\net7.0\ZooCore.csproj.CopyComplete
+C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\Microsoft.Extensions.Logging.dll
+C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
+C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\Microsoft.Extensions.Configuration.dll
+C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\Microsoft.Extensions.Logging.Configuration.dll
+C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\Microsoft.Extensions.Logging.Console.dll
+C:\Project\ZooSolution\ZooCore\bin\Debug\net7.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll

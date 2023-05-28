@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Moq;
 using ZooCore.Services;
 using ZooDomain.DataModels;
+using ZooDomain.DTO;
 using ZooDomain.Enums;
 using ZooDomain.Services;
 
@@ -13,49 +14,52 @@ namespace ZooTest
     public class TestZooService
     {
         [Fact]
-        public void CalculateTotalCost_ShouldCalculateCorrectTotalCost()
+        public void CalculateTotalCost_ShouldCalculateTotalCost()
         {
             // Arrange
-            string priceFilePath = "../../../../ZooCore/Files/prices.txt";
-            string animalFilePath = "../../../../ZooCore/Files//animals.csv";
-            string zooFilePath = "../../../../ZooCore/Files/zoo.xml";
-
-            var parseFileServiceMock = new Mock<IParseFileService>();
-
-            var prices = new Dictionary<string, decimal> {
-                { "Meat", 12.56m },
-                { "Fruit", 5.60m }
-            };
-
-            var animalCategories = new List<AnimalCategory> {
-                new AnimalCategory { Name = "Lion", RatePerKg = 0.10m, Type = AnimalTypeEnum.Carnivores, MeatPercentage = 100 },
-                new AnimalCategory { Name = "Giraffe", RatePerKg = 0.08m, Type = AnimalTypeEnum.Herbivores, MeatPercentage = 0 },
-            };
-
-            var zoo = new Zoo
+            var dto = new CalculateDto
             {
-                Animals = new List<Animal> {
-                    new Animal { Name = "Simba", Weight = 160m, AnimalCategory = animalCategories[0] },
-                    new Animal { Name = "Hanna", Weight = 200m, AnimalCategory = animalCategories[1] }
+                FoodPrices = new Dictionary<string, decimal>
+                {
+                    { "Meat", 12.56m },
+                    { "Fruit", 5.60m }
+                },
+                ZooDetails = new Zoo
+                {
+                    Animals = new List<Animal>
+                    {
+                        new Animal
+                        {
+                            AnimalCategory = new AnimalCategory
+                            {
+                                RatePerKg = 8.5m,
+                                MeatPercentage = 70,
+                                Type = AnimalTypeEnum.Omnivores
+                            },
+                            Weight = 120
+                        },
+                        new Animal
+                        {
+                            AnimalCategory = new AnimalCategory
+                            {
+                                RatePerKg = 6.25m,
+                                MeatPercentage = 40,
+                                Type = AnimalTypeEnum.Omnivores
+                            },
+                            Weight = 85
+                        }
+                    }
                 }
             };
 
-            parseFileServiceMock.Setup(pfs => pfs.ParsePricesFile(priceFilePath)).Returns(prices);
-
-            parseFileServiceMock.Setup(pfs => pfs.ParseAnimalFile(animalFilePath)).Returns(animalCategories);
-
-            parseFileServiceMock.Setup(pfs => pfs.ParseZooFile(zooFilePath, animalCategories)).Returns(zoo);
-
-            var zooService = new ZooService(parseFileServiceMock.Object);
+            var zooService = new ZooService();
 
             // Act
-            decimal totalCost = zooService.CalculateTotalCost(priceFilePath, animalFilePath, zooFilePath);
+            decimal totalCost = zooService.CalculateTotalCost(dto);
 
             // Assert
-            Assert.Equal(290.56m, totalCost);
-            parseFileServiceMock.Verify(pfs => pfs.ParsePricesFile(priceFilePath), Times.Once);
-            parseFileServiceMock.Verify(pfs => pfs.ParseAnimalFile(animalFilePath), Times.Once);
-            parseFileServiceMock.Verify(pfs => pfs.ParseZooFile(zooFilePath, animalCategories), Times.Once);
+            decimal expectedCost = (((8.5m * 120 * 70 * 12.56m) + (8.5m * 120 * 30 * 5.60m)) / 100) + (((6.25m * 85 * 40 * 12.56m) + (6.25m * 85 * 60 * 5.60m)) / 100);
+            Assert.Equal(expectedCost, totalCost);
         }
     }
 }

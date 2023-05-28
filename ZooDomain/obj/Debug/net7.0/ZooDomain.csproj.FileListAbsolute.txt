@@ -1,0 +1,12 @@
+C:\Project\ZooSolution\ZooDomain\bin\Debug\net7.0\ZooDomain.deps.json
+C:\Project\ZooSolution\ZooDomain\bin\Debug\net7.0\ZooDomain.dll
+C:\Project\ZooSolution\ZooDomain\bin\Debug\net7.0\ZooDomain.pdb
+C:\Project\ZooSolution\ZooDomain\obj\Debug\net7.0\ZooDomain.csproj.AssemblyReference.cache
+C:\Project\ZooSolution\ZooDomain\obj\Debug\net7.0\ZooDomain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Project\ZooSolution\ZooDomain\obj\Debug\net7.0\ZooDomain.AssemblyInfoInputs.cache
+C:\Project\ZooSolution\ZooDomain\obj\Debug\net7.0\ZooDomain.AssemblyInfo.cs
+C:\Project\ZooSolution\ZooDomain\obj\Debug\net7.0\ZooDomain.csproj.CoreCompileInputs.cache
+C:\Project\ZooSolution\ZooDomain\obj\Debug\net7.0\ZooDomain.dll
+C:\Project\ZooSolution\ZooDomain\obj\Debug\net7.0\refint\ZooDomain.dll
+C:\Project\ZooSolution\ZooDomain\obj\Debug\net7.0\ZooDomain.pdb
+C:\Project\ZooSolution\ZooDomain\obj\Debug\net7.0\ref\ZooDomain.dll
