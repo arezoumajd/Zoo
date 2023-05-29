@@ -6453,11 +6453,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Project\\ZooSolution\\ZooTest\\ZooTest.csproj",
+      "projectUniqueName": "c:\\Project\\ZooSolution\\ZooTest\\ZooTest.csproj",
       "projectName": "ZooTest",
-      "projectPath": "C:\\Project\\ZooSolution\\ZooTest\\ZooTest.csproj",
+      "projectPath": "c:\\Project\\ZooSolution\\ZooTest\\ZooTest.csproj",
       "packagesPath": "C:\\Users\\arezou\\.nuget\\packages\\",
-      "outputPath": "C:\\Project\\ZooSolution\\ZooTest\\obj\\",
+      "outputPath": "c:\\Project\\ZooSolution\\ZooTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\arezou\\AppData\\Roaming\\NuGet\\NuGet.Config"

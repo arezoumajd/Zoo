@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XwKT4fVMfYPjTQRuSlq7ov7gO1dNBqekefN+0j8baBOt2OiY2qyfBKisKYJnzbbGQ6CfljcUbx3+U2QAHeS++g==",
+  "dgSpecHash": "sixvdannvEmKmbfyo8vlFZpXqUzNkKoQMfs6GT/UMUykW95j3z/VAAlSPUPNynIUFZzkT2FIzyQe8ziX8ERuiw==",
   "success": true,
-  "projectFilePath": "C:\\Project\\ZooSolution\\ZooTest\\ZooTest.csproj",
+  "projectFilePath": "c:\\Project\\ZooSolution\\ZooTest\\ZooTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\arezou\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\arezou\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
