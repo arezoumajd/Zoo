@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oUNgoo2pRLkPJ4ZHuTM6SQ5uNWv6cYZ3gCNTgvx98ySCAeiC3ny0M08rlH3wXoooEoVkDMpJIEHjrjxK7HXaHA==",
+  "dgSpecHash": "k4C26ySyGpxoLKIEkWuQwVGraGYgFsSoyXhW5HwxgURcdpJdsjZHrvIm+JoInN8c0cfk1arxHB9zjLpgkRRd8Q==",
   "success": true,
-  "projectFilePath": "C:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj",
+  "projectFilePath": "c:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\arezou\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",
     "C:\\Users\\arezou\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",

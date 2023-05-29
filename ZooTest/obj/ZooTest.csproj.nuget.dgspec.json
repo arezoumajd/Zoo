@@ -4,14 +4,14 @@
     "c:\\Project\\ZooSolution\\ZooTest\\ZooTest.csproj": {}
   },
   "projects": {
-    "C:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj": {
+    "c:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj",
+        "projectUniqueName": "c:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj",
         "projectName": "ZooCore",
-        "projectPath": "C:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj",
+        "projectPath": "c:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj",
         "packagesPath": "C:\\Users\\arezou\\.nuget\\packages\\",
-        "outputPath": "C:\\Project\\ZooSolution\\ZooCore\\obj\\",
+        "outputPath": "c:\\Project\\ZooSolution\\ZooCore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\arezou\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -155,8 +155,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj": {
-                "projectPath": "C:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj"
+              "c:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj": {
+                "projectPath": "c:\\Project\\ZooSolution\\ZooCore\\ZooCore.csproj"
               }
             }
           }
