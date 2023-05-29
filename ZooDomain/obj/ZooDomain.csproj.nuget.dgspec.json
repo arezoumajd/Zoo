@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Project\\ZooSolution\\ZooDomain\\ZooDomain.csproj": {}
+    "c:\\Project\\ZooSolution\\ZooDomain\\ZooDomain.csproj": {}
   },
   "projects": {
-    "C:\\Project\\ZooSolution\\ZooDomain\\ZooDomain.csproj": {
+    "c:\\Project\\ZooSolution\\ZooDomain\\ZooDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Project\\ZooSolution\\ZooDomain\\ZooDomain.csproj",
+        "projectUniqueName": "c:\\Project\\ZooSolution\\ZooDomain\\ZooDomain.csproj",
         "projectName": "ZooDomain",
-        "projectPath": "C:\\Project\\ZooSolution\\ZooDomain\\ZooDomain.csproj",
+        "projectPath": "c:\\Project\\ZooSolution\\ZooDomain\\ZooDomain.csproj",
         "packagesPath": "C:\\Users\\arezou\\.nuget\\packages\\",
-        "outputPath": "C:\\Project\\ZooSolution\\ZooDomain\\obj\\",
+        "outputPath": "c:\\Project\\ZooSolution\\ZooDomain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\arezou\\AppData\\Roaming\\NuGet\\NuGet.Config"
